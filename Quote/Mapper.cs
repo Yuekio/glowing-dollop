@@ -94,7 +94,7 @@ namespace Quote
                 tourQuotes = tourQuotes.Where(w => selectedServicesCodes.Contains(w.ContractService.ServiceCode)).ToList();
             }
 
-            var baseSelectedQuote = tourQuotes.First();
+            var baseSelectedQuote = tourQuotes.FirstOrDefault();
             var margin = .25;
             TourCalculatedQuote calculatedQuote = null;
             if (request.RetrieveOptions.GetCalculatedQuote)
@@ -103,7 +103,7 @@ namespace Quote
                 {
                     baseSelectedQuote = baseSelectedQuote,
                     allSelectedQuotes = tourQuotes,
-                    maxPax = baseSelectedQuote.maxPax,
+                    maxPax = baseSelectedQuote != null ? baseSelectedQuote.maxPax : 0,
                     Tour = tour,
                     services = activityServices,
                     Margin = (double)margin,
